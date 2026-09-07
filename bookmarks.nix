@@ -144,6 +144,21 @@
         ];
       }
       {
+        name = "Academic";
+        bookmarks = [
+          {
+            name = "WCC";
+            url = "https://experience.elluciancloud.com/wcc/";
+            keyword = "wcc";
+          }
+          {
+            name = "Canvas - PCC";
+            url = "https://pccsk12.instructure.com/login/saml";
+            keyword = "canvas";
+          }
+        ];
+      }
+      {
         name = "Browser";
         bookmarks = [
           {

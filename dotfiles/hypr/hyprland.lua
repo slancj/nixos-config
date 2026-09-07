@@ -42,6 +42,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprpolkitagent && blueman-applet")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
+    hl.exec_cmd("wl-clip-persist --clipboard both")
     hl.exec_cmd("sleep 5 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 0")
     hl.exec_cmd("fcitx5 -d -r")
 end)
@@ -143,7 +144,8 @@ hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 
-hl.bind("Print", hl.dsp.exec_cmd('mkdir -p ~/Pictures && grim -g "$(slurp)" - | satty --filename - --fullscreen --output-filename ~/Pictures/$(date +%s).png'))
+hl.bind("Print", hl.dsp.exec_cmd('mkdir -p ~/Pictures && grim -g "$(slurp)" - | satty --filename - --fullscreen --output-filename ~/Pictures/$(date +%s).png --copy-command wl-copy --auto-copy --save-after-copy'))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd('mkdir -p ~/Pictures && grim -g "$(slurp)" - | satty --filename - --fullscreen --output-filename ~/Pictures/$(date +%s).png --copy-command wl-copy --early-exit --actions-on-enter save-to-clipboard,save-to-file,exit'))
 hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
 
 -- Move focus with mainMod + HJKL

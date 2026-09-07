@@ -46,6 +46,10 @@
     git.enable = true;
     kdeconnect.enable = true;
     fish.enable = true;
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
 
   programs.nh = {
