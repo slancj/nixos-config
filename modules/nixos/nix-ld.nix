@@ -18,13 +18,20 @@
       libdrm
       mesa
       alsa-lib
+      libpulseaudio
       dbus
       libxkbcommon
       libx11
       libxcomposite
       libxdamage
       libxext
+      libxcb
       libxfixes
+      libXcursor
+      libXi
+      libXrender
+      libXtst
+      libXScrnSaver
       libxrandr
       libglvnd
 

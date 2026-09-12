@@ -14,7 +14,7 @@ let
 in
 {
   imports = [
-    ./firefox.nix
+    # ./firefox.nix # disabled 2026-09-09 - not needed anymore, kept for reference
     ./librewolf.nix
   ];
 

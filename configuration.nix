@@ -56,7 +56,8 @@
     enable = true;
     clean = {
       enable = true;
-      extraArgs = "--keep-since 7d --keep 3"; # Keeps only 3 generations, up to 7 days old
+      dates = "daily";
+      extraArgs = "--keep-since 3d --keep 2"; # Keeps only 2 generations, up to 3 days old
     };
   };
 

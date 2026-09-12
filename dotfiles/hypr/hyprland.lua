@@ -37,7 +37,7 @@ local firefox = "firefox"
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("systemctl --user start awww && sleep 1 && awww img /persist/etc/nixos/wallpapers/wallpaper.png --transition-type wipe --transition-angle 45 --transition-step 90")
+    hl.exec_cmd("systemctl --user start awww && sleep 1 && awww img /persist/etc/nixos/wallpapers/wallpaper.jpg --transition-type wipe --transition-angle 45 --transition-step 90")
     hl.exec_cmd("waybar & nm-applet & hyprsunset --temperature 2000")
     hl.exec_cmd("systemctl --user start hyprpolkitagent && blueman-applet")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")

@@ -82,8 +82,8 @@ in
     ncdu proton-vpn gnome-clocks pavucontrol
     hyprsunset jq nerd-fonts.symbols-only
     nerd-fonts.jetbrains-mono wl-clipboard wl-clip-persist
-    bat ripgrep ffmpeg tesseract
-    trash-cli mission-center chisel code-cursor-fhs obsidian easyeffects opencode
+    bat ripgrep ffmpeg tesseract aria2
+    trash-cli mission-center chisel obsidian easyeffects opencode
     calibre qview anki vlc localsend
     libsecret seahorse dolphin-emu eden
   ];
@@ -133,7 +133,7 @@ in
 
       background = [
         {
-          path = "/persist/etc/nixos/wallpapers/wallpaper.png";
+          path = "/persist/etc/nixos/wallpapers/wallpaper.jpg";
           blur_passes = 10;
           blur_size = 12;
           brightness = 0.25;

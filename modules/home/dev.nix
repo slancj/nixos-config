@@ -28,6 +28,7 @@
     neovim
     fd
     lazygit
+    just
     tree-sitter
     luarocks
     python3
@@ -37,7 +38,6 @@
     bun
     rustc
     cargo
-    devin-desktop
     godot_4
     git-lfs
   ];
