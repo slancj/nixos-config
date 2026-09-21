@@ -13,6 +13,16 @@ hl.monitor({
 })
 
 ------------------
+---- ECOSYSTEM ---
+------------------
+
+hl.config({
+    ecosystem = {
+        no_update_news = true,
+    },
+})
+
+------------------
 ---- CURSOR ----
 ------------------
 
@@ -29,7 +39,7 @@ hl.config({
 local terminal = "ghostty"
 local fileManager = "thunar"
 local menu = "rofi -show drun"
-local zen = "flatpak run app.zen_browser.zen"
+local zen = "zen-beta"
 local firefox = "firefox"
 
 -------------------
@@ -101,8 +111,16 @@ hl.animation({ leaf = "workspaces",  enabled = true, speed = 3,   bezier = "silk
 hl.animation({ leaf = "fade",        enabled = true, speed = 2,   bezier = "silky" })
 hl.animation({ leaf = "borderangle", enabled = false })
 
+-- 3-finger swipe often isn't delivered by libinput on some Dell
+-- touchpads (aggressive palm rejection eats a finger), so bind both
+-- 3- and 4-finger horizontal swipes to workspace switching.
 hl.gesture({
     fingers = 3,
+    direction = "horizontal",
+    action = "workspace",
+})
+hl.gesture({
+    fingers = 4,
     direction = "horizontal",
     action = "workspace",
 })
