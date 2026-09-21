@@ -16,7 +16,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
+
+    # Secrets management (not integrated yet - input only)
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -32,10 +37,6 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules =[
-        
-        ({ config, pkgs, ... }: {
-          nixpkgs.overlays = [ inputs.nur.overlays.default ];
-        })
 
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence

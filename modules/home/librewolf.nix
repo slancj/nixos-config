@@ -12,16 +12,6 @@ let
   customSettings = sharedSettings // {
     "sidebar.verticalTabs" = true;
   };
-
-  commonExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    bitwarden
-    darkreader
-    temporary-containers
-    multi-account-containers
-    sponsorblock
-    vimium-c
-    buster-captcha-solver
-  ];
 in
 {
   programs.librewolf = {
@@ -46,7 +36,6 @@ in
         bookmarks = { force = true; settings = import ../../bookmarks.nix; };
         containersForce = true;
         containers = commonContainers;
-        extensions.packages = commonExtensions;
       };
     };
   };

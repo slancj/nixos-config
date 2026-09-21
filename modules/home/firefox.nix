@@ -102,25 +102,11 @@ let
     "browser.startup.page" = 3;
   };
 
-  commonExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    vimium-c
-    bitwarden
-    darkreader
-    temporary-containers
-    violentmonkey
-    buster-captcha-solver
-    sponsorblock
-    dearrow
-    multi-account-containers
-    sidebery
-    foxyproxy-standard
-    single-file
-    translate-web-pages
-  ];
+  # NOTE: extensions were previously sourced from NUR rycee.firefox-addons.
+  # NUR removed, so no declarative extensions here. Install manually or via policies.
+  commonExtensions = [ ];
 
-  firefoxExtensions = commonExtensions ++ (with pkgs.nur.repos.rycee.firefox-addons; [
-    ublock-origin
-  ]);
+  firefoxExtensions = commonExtensions;
 
   # Shared with zen-browser
   commonPolicies = import ./browser-policies.nix;
