@@ -15,7 +15,6 @@ let
 
   textMimes = [
     "text/plain"
-    "text/html"
     "text/markdown"
     "text/css"
     "text/javascript"
@@ -28,7 +27,83 @@ let
     "application/toml"
   ];
 
+  webMimes = [
+    "text/html"
+    "application/xhtml+xml"
+    "text/xml"
+    "application/vnd.mozilla.xul+xml"
+    "x-scheme-handler/http"
+    "x-scheme-handler/https"
+  ];
+
+  pdfMimes = [
+    "application/pdf"
+  ];
+
+  archiveMimes = [
+    "application/zip"
+    "application/x-zip-compressed"
+    "application/gzip"
+    "application/x-tar"
+    "application/x-bzip"
+    "application/x-bzip2"
+    "application/x-7z-compressed"
+    "application/vnd.rar"
+    "application/x-xz"
+    "application/zstd"
+  ];
+
+  videoMimes = [
+    "video/mp4"
+    "video/x-matroska"
+    "video/webm"
+    "video/ogg"
+    "video/x-msvideo"
+    "video/quicktime"
+  ];
+
+  audioMimes = [
+    "audio/mpeg"
+    "audio/flac"
+    "audio/ogg"
+    "audio/wav"
+    "audio/mp4"
+    "audio/x-wav"
+  ];
+
   associate = app: mimes: lib.genAttrs mimes (name: [ app ]);
+
+  writerMimes = [
+    "application/vnd.oasis.opendocument.text"
+    "application/vnd.oasis.opendocument.text-template"
+    "application/msword"
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
+    "application/rtf"
+  ];
+
+  calcMimes = [
+    "application/vnd.oasis.opendocument.spreadsheet"
+    "application/vnd.oasis.opendocument.spreadsheet-template"
+    "application/vnd.ms-excel"
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.template"
+    "text/csv"
+  ];
+
+  impressMimes = [
+    "application/vnd.oasis.opendocument.presentation"
+    "application/vnd.oasis.opendocument.presentation-template"
+    "application/vnd.ms-powerpoint"
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    "application/vnd.openxmlformats-officedocument.presentationml.template"
+    "application/vnd.openxmlformats-officedocument.presentationml.slideshow"
+  ];
+
+  drawMimes = [
+    "application/vnd.oasis.opendocument.graphics"
+    "application/vnd.oasis.opendocument.graphics-template"
+  ];
 in
 {
   fonts.fontconfig.enable = true;
@@ -86,13 +161,31 @@ in
     trash-cli mission-center chisel obsidian easyeffects opencode
     calibre qview anki vlc localsend
     libsecret seahorse dolphin-emu eden
+    libreoffice-qt hunspell hunspellDicts.en_US
   ];
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications =
       (associate "com.interversehq.qView.desktop" imageMimes) //
-      (associate "codium.desktop" textMimes);
+      (associate "code.desktop" textMimes) //
+      (associate "zen-beta.desktop" webMimes) //
+      (associate "zen-beta.desktop" pdfMimes) //
+      (associate "org.gnome.FileRoller.desktop" archiveMimes) //
+      (associate "mpv.desktop" videoMimes) //
+      (associate "mpv.desktop" audioMimes) //
+      { "inode/directory" = [ "thunar.desktop" ]; } //
+      (associate "writer.desktop" writerMimes) //
+      (associate "calc.desktop" calcMimes) //
+      (associate "impress.desktop" impressMimes) //
+      (associate "draw.desktop" drawMimes);
+    associations.removed = lib.zipAttrsWith (_: vs: lib.unique (lib.concatLists vs)) [
+      (associate "calibre-gui.desktop" (writerMimes ++ pdfMimes ++ [ "text/plain" "text/html" "text/rtf" ]))
+      (associate "calibre-ebook-edit.desktop" writerMimes)
+      (associate "calibre-ebook-viewer.desktop" pdfMimes)
+      (associate "org.prismlauncher.PrismLauncher.desktop" archiveMimes)
+      (associate "app.zen_browser.zen.desktop" (webMimes ++ pdfMimes))
+    ];
   };
 
   programs.mpv = {
@@ -190,6 +283,43 @@ in
   services.gnome-keyring = {
     enable = true;
     components = [ "pkcs11" "secrets" "ssh" ];
+  };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+      };
+      listener = [
+        {
+          timeout = 120;
+          on-timeout = "brightnessctl -s set 10";
+          on-resume = "brightnessctl -r";
+        }
+        {
+          timeout = 120;
+          on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+          on-resume = "brightnessctl -rd rgb:kbd_backlight";
+        }
+        {
+          timeout = 180;
+          on-timeout = "loginctl lock-session";
+        }
+        {
+          timeout = 210;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 600;
+          on-timeout = "systemctl suspend";
+        }
+      ];
+    };
   };
 
   xdg.configFile."waybar".source = config.lib.file.mkOutOfStoreSymlink "/persist/etc/nixos/dotfiles/waybar/velvet";
