@@ -35,6 +35,23 @@
       libxrandr
       libglvnd
 
+      # Firefox (upstream tarball, e.g. Aph build/firefox) dlopens
+      # libavcodec by hardcoded soname. nixpkgs pins the ffmpeg major per
+      # Firefox version (wrapper.nix): >=153.1 -> ffmpeg_9 (libavcodec.so.63),
+      # else ffmpeg_8 (libavcodec.so.62). Aph currently pins FF 156, so
+      # ffmpeg_9 is required; without it H264/AAC fail with
+      # NS_ERROR_DOM_MEDIA_METADATA_ERR / "Decode metadata failed".
+      # Keep this in sync when Aph's scripts/fetch.py VERSION bumps past
+      # the next ffmpeg ABI.
+      ffmpeg_9
+      libva
+      libvdpau
+      pipewire
+      libgbm
+      vulkan-loader
+      cups
+      libnotify
+
       # For Geph
       glib
       gtk3

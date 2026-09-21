@@ -32,6 +32,12 @@
     enable = true;
   };
 
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+  };
+
   xdg.terminal-exec = {
     enable = true;
     settings = {

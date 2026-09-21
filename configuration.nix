@@ -54,16 +54,18 @@
 
   programs.nh = {
     enable = true;
+    flake = "/persist/etc/nixos";
     clean = {
       enable = true;
       dates = "daily";
-      extraArgs = "--keep-since 3d --keep 2"; # Keeps only 2 generations, up to 3 days old
+      extraArgs = "--keep-since 7d --keep 5";
     };
   };
 
   services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
+    cloudflared
     curl
     distrobox
     steam-run
@@ -85,6 +87,8 @@
     gcc
     gnumake
     openvpn
+    proxychains-ng
+    pre-commit
   ];
 
   nixpkgs.config = {
