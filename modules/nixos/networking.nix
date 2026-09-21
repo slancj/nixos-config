@@ -1,9 +1,24 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  zapretSchoolParams = [
+    "--dpi-desync=fake"
+    "--dpi-desync-ttl=3"
+    "--dpi-desync-fake-tls=0x00000000"
+    "--dpi-desync-fake-tls=!"
+    "--dpi-desync-fake-tls-mod=rnd,rndsni,dupsid"
+  ];
+
+  zapretHomeParams = [
+    "--dpi-desync=split2"
+    "--dpi-desync-split-pos=midsld"
+    "--dpi-desync-fooling=md5sig"
+    "--hostcase"
+  ];
+in
 {
   networking = {
     networkmanager.enable = true;
-    firewall.trustedInterfaces = [ "waydroid0" ];
     hosts = {
       "0.0.0.0" = [
         "www.arras.io"
@@ -36,24 +51,24 @@
 
   services.zapret = {
     enable = true;
-    
-
-    params = [
- /*
-      "--dpi-desync=fake"
-      "--dpi-desync-ttl=3"
-      "--dpi-desync-fake-tls=0x00000000"
-      "--dpi-desync-fake-tls=!"
-      "--dpi-desync-fake-tls-mod=rnd,rndsni,dupsid"
-  */
-     "--dpi-desync=split2"
-      "--dpi-desync-split-pos=midsld"
-      "--dpi-desync-fooling=md5sig"
-      "--hostcase" 
-
-
-  ];
+    params = zapretSchoolParams; # default / base config = school
   };
+
+  # Build the home profile once, then switch without rebuilding or editing:
+  #   zapret-home    (school -> home)
+  #   zapret-school  (home -> school/base)
+  specialisation.zapret-home.configuration = {
+    services.zapret.params = lib.mkForce zapretHomeParams;
+  };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "zapret-home" ''
+      exec sudo /nix/var/nix/profiles/system/specialisation/zapret-home/bin/switch-to-configuration test
+    '')
+    (pkgs.writeShellScriptBin "zapret-school" ''
+      exec sudo /nix/var/nix/profiles/system/bin/switch-to-configuration test
+    '')
+  ];
 
   services.dnscrypt-proxy = {
     enable = true;

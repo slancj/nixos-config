@@ -53,8 +53,8 @@
       "/var/lib/bluetooth"
       "/var/lib/flatpak"
       "/var/lib/containers"
-      "/var/lib/waydroid"
       "/var/lib/libvirt"
+      "/var/lib/tailscale"
     ];
     files = [
       "/etc/machine-id"
