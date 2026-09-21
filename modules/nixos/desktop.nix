@@ -6,7 +6,15 @@
   ];
 
   # Display Manager and Windowing
-  services.displayManager.gdm.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd \"uwsm start hyprland-uwsm.desktop\"";
+        user = "greeter";
+      };
+    };
+  };
   services.xserver.enable = true;
 
   programs.hyprland = {
