@@ -16,6 +16,7 @@
       ".librewolf/custom"
       ".local/share/Steam"
       ".config/aph"
+      ".config/gh"
     ];
     files = [
       ".local/bin/aph"

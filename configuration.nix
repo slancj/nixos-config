@@ -10,6 +10,19 @@
     interval = "monthly";
   };
 
+  services.journald.settings.Journal = {
+    SystemMaxUse = "500M";
+    SystemMaxFileSize = "50M";
+    RuntimeMaxUse = "100M";
+  };
+
+  systemd.coredump.settings.Coredump = {
+    Storage = "external";
+    Compress = "yes";
+    MaxUse = "500M";
+    KeepFree = "1G";
+  };
+
   programs.fuse.userAllowOther = true;
   services.tlp.enable = true;
 
@@ -35,7 +48,7 @@
     trueking = {
       isNormalUser = true;
       description = "trueking";
-      shell = pkgs.fish; 
+      shell = pkgs.zsh; 
       extraGroups = [ "networkmanager" "wheel" "input" "video" ];
       hashedPassword = "$y$j9T$FT36B0y7klaP4SEG3eAmL/$Q5BUfiiwJgJbQ.3S6nZCXBnPJVXSZw4VbT.lIqEFFg9";
     };
@@ -45,7 +58,7 @@
     mosh.enable = true;
     git.enable = true;
     kdeconnect.enable = true;
-    fish.enable = true;
+    zsh.enable = true;
     appimage = {
       enable = true;
       binfmt = true;

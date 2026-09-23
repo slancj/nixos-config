@@ -1,13 +1,22 @@
 { config, pkgs, ... }:
 
 {
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    oh-my-zsh = {
+      enable = true;
+      theme = "robbyrussell";
+      plugins = [ "git" "sudo" ];
+    };
   };
 
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableZshIntegration = false;
   };
 
   programs.ghostty = {
@@ -21,11 +30,13 @@
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
-    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.yazi = {
     enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.fzf = {
@@ -34,8 +45,9 @@
 
   programs.atuin = {
     enable = true;
-    enableFishIntegration = true;
+    enableZshIntegration = true;
     enableBashIntegration = true;
+    flags = [ "--disable-ctrl-r" ];
   };
 
   xdg.terminal-exec = {

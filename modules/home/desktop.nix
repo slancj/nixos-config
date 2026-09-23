@@ -160,7 +160,7 @@ in
     bat ripgrep ffmpeg tesseract aria2
     trash-cli mission-center chisel obsidian easyeffects opencode
     calibre qview anki vlc localsend
-    libsecret seahorse dolphin-emu eden
+    libsecret seahorse dolphin-emu
     libreoffice-qt hunspell hunspellDicts.en_US
   ];
 

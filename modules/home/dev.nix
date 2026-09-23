@@ -7,7 +7,7 @@
 
     enableBashIntegration = true;
 
-    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.vscode = {

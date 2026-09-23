@@ -23,8 +23,8 @@ in
       "0.0.0.0" = [
         "www.arras.io"
         "arras.io"
-        "www.arrax.io"
-        "arrax.io"
+        # "www.arrax.io"
+        # "arrax.io"
         "www.evowars.io"
         "evowars.io"
         "www.gats.io"
