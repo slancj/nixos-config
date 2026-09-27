@@ -3,3 +3,6 @@ result-*
 
 # Repomix output
 repomix-output.*
+
+# Local Anki word list (presentation order, regenerated on demand)
+filtered-deck-words.txt

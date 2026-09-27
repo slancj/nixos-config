@@ -17,6 +17,8 @@
       ".local/share/Steam"
       ".config/aph"
       ".config/gh"
+      ".local/share/Anki2"
+      ".local/share/AnkiProgramFiles"
     ];
     files = [
       ".local/bin/aph"

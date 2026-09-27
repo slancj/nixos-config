@@ -45,6 +45,38 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Printing (CUPS) + network printer discovery (Avahi/mDNS)
+  services.printing.enable = true;
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Lab_3_Printer";
+        location = "Lab 3";
+        deviceUri = "ipp://10.69.172.12:631/ipp/print";
+        model = "everywhere";
+      }
+      {
+        name = "CyberLab_Printer";
+        location = "CyberLab";
+        description = "CyberLab Network Printer";
+        # Port 9100 uses the socket:// protocol (AppSocket/JetDirect):
+        deviceUri = "socket://192.168.10.57:9100";
+        # Generic PCL driver included with CUPS (works on virtually all HP/office laser printers):
+        model = "drv:///sample.drv/generic.ppd";
+      }
+    ];
+    ensureDefaultPrinter = "Lab_3_Printer";
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    system-config-printer
+  ];
+
   # File Manager (Thunar) and support services
   programs.thunar = {
     enable = true;
