@@ -40,5 +40,7 @@
     cargo
     godot_4
     git-lfs
+    scrcpy
+    android-tools
   ];
 }

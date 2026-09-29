@@ -56,6 +56,9 @@
       "/var/lib/containers"
       "/var/lib/libvirt"
       "/var/lib/tailscale"
+      "/var/lib/cups"
+      "/var/cache/cups"
+      "/var/spool/cups"
     ];
     files = [
       "/etc/machine-id"

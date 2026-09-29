@@ -23,6 +23,7 @@
     files = [
       ".local/bin/aph"
       ".local/share/applications/aph.desktop"
+      ".local/share/applications/org.mozilla.firefox-beta.desktop"
       ".local/share/icons/hicolor/128x128/apps/aph.png"
     ];
   };

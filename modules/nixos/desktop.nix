@@ -46,26 +46,17 @@
   services.blueman.enable = true;
 
   # Printing (CUPS) + network printer discovery (Avahi/mDNS)
-  services.printing.enable = true;
-  hardware.printers = {
-    ensurePrinters = [
-      {
-        name = "Lab_3_Printer";
-        location = "Lab 3";
-        deviceUri = "ipp://10.69.172.12:631/ipp/print";
-        model = "everywhere";
-      }
-      {
-        name = "CyberLab_Printer";
-        location = "CyberLab";
-        description = "CyberLab Network Printer";
-        # Port 9100 uses the socket:// protocol (AppSocket/JetDirect):
-        deviceUri = "socket://192.168.10.57:9100";
-        # Generic PCL driver included with CUPS (works on virtually all HP/office laser printers):
-        model = "drv:///sample.drv/generic.ppd";
-      }
-    ];
-    ensureDefaultPrinter = "Lab_3_Printer";
+  # NOTE: no hardware.printers.ensurePrinters here on purpose — its
+  # postStart lpadmin probe fails the whole cups.service when a printer
+  # is unreachable at boot (e.g. WiFi not ready / off-site).
+  # Configure printers imperatively via system-config-printer,
+  # http://localhost:631, or lpadmin; state is persisted via /var/lib/cups
+  # (/etc/cups is a symlink there — persisting it directly breaks activation).
+  services.printing = {
+    enable = true;
+    openFirewall = true;
+    browsed.enable = true;
+    drivers = with pkgs; [ cups-filters hplip ];
   };
   services.avahi = {
     enable = true;

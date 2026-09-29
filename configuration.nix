@@ -80,6 +80,7 @@
   environment.systemPackages = with pkgs; [
     cloudflared
     curl
+    dnsutils
     distrobox
     steam-run
     vim
