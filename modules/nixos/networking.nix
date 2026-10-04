@@ -23,8 +23,8 @@ in
       "0.0.0.0" = [
         "www.arras.io"
         "arras.io"
-        # "www.arrax.io"
-        # "arrax.io"
+        "www.arrax.io"
+        "arrax.io"
         "www.evowars.io"
         "evowars.io"
         "www.gats.io"
@@ -44,6 +44,18 @@ in
     firewall.checkReversePath = "loose";
     firewall.allowedTCPPorts = [ 53317 ];
     firewall.allowedUDPPorts = [ 53317 ];
+  };
+
+  # Lossy-uplink survival kit (home WAN drops ~30% of packets past the
+  # modem): BBR models delivery rate instead of treating every loss as
+  # congestion, so it holds throughput where cubic collapses. fq is BBR's
+  # required companion qdisc. Disabling slow-start-after-idle keeps
+  # interactive/bursty connections from re-probing from scratch.
+  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernel.sysctl = {
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_slow_start_after_idle" = 0;
   };
 
   services.cloudflare-warp.enable = true;

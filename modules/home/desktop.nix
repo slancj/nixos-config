@@ -159,7 +159,7 @@ in
     nerd-fonts.jetbrains-mono wl-clipboard wl-clip-persist
     bat ripgrep ffmpeg tesseract aria2
     trash-cli mission-center chisel obsidian easyeffects opencode
-    calibre qview anki vlc localsend
+    calibre qview anki vlc localsend rpi-imager
     libsecret seahorse dolphin-emu
     libreoffice-qt hunspell hunspellDicts.en_US
   ];
