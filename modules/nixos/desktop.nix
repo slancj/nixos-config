@@ -45,23 +45,14 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # Printing (CUPS) + network printer discovery (Avahi/mDNS)
-  # NOTE: no hardware.printers.ensurePrinters here on purpose — its
-  # postStart lpadmin probe fails the whole cups.service when a printer
-  # is unreachable at boot (e.g. WiFi not ready / off-site).
-  # Configure printers imperatively via system-config-printer,
-  # http://localhost:631, or lpadmin; state is persisted via /var/lib/cups
-  # (/etc/cups is a symlink there — persisting it directly breaks activation).
+  # Printing (CUPS) — imperative only, persisted via /var/lib/cups
+  # (/etc/cups is a symlink there). Add once via system-config-printer,
+  # http://localhost:631, or lpadmin and it survives reboots.
+  # No hardware.printers.ensurePrinters (fails cups.service when off-site),
+  # no Avahi/browsed (only needed for mDNS auto-discovery).
   services.printing = {
     enable = true;
-    openFirewall = true;
-    browsed.enable = true;
-    drivers = with pkgs; [ cups-filters hplip ];
-  };
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+    drivers = with pkgs; [ cups-filters ];
   };
 
   environment.systemPackages = with pkgs; [

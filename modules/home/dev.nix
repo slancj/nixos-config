@@ -42,5 +42,7 @@
     git-lfs
     scrcpy
     android-tools
+    age
+    sops
   ];
 }

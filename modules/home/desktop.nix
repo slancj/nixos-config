@@ -196,13 +196,6 @@ in
     enable = true;
   };
 
-  services.syncthing = {
-    enable = true;
-    extraOptions = [
-      "--home=/home/trueking/Safe/Obsidian Vault/.configsync"
-    ];
-  };
-
   services.playerctld.enable = true;
   services.cliphist.enable = true;
   services.awww = {

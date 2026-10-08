@@ -93,6 +93,9 @@
     btop
     eza
     tmux
+    nmap
+    tcpdump
+    mtr
     file-roller # The GUI archive manager
     _7zz        # Support for .7z
     unrar       # Support for .rar
