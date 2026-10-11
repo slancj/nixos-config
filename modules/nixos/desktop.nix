@@ -70,6 +70,17 @@
   services.gvfs.enable = true;
   services.tumbler.enable = true;
 
+  # Clash Verge Rev (Clash/Mihomo GUI, Tauri-based)
+  # Provides `clash-verge` GUI + `clash-verge-service` daemon.
+  # tunMode: grants CAP_NET_ADMIN/RAW so TUN + DNS hijack works.
+  # serviceMode: runs privileged helper daemon (needed for TUN / system proxy without running GUI as root).
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+    tunMode = true;
+    serviceMode = true;
+    autoStart = false;
+  };
   # Steam
   programs.steam = {
     enable = true;

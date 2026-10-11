@@ -56,6 +56,7 @@
       "/var/lib/containers"
       "/var/lib/libvirt"
       "/var/lib/tailscale"
+      "/var/lib/clash-verge-service"
       "/var/lib/cups"
       "/var/cache/cups"
       "/var/spool/cups"

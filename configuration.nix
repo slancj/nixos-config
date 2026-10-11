@@ -104,6 +104,7 @@
     gcc
     gnumake
     openvpn
+    openssl.bin
     proxychains-ng
     pre-commit
   ];

@@ -17,8 +17,10 @@
       ".local/share/Steam"
       ".config/aph"
       ".config/gh"
+      ".config/treaulab"
       ".local/share/Anki2"
       ".local/share/AnkiProgramFiles"
+      ".config/clash-verge"
     ];
     files = [
       ".local/bin/aph"
